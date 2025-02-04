@@ -1,0 +1,42 @@
+import http from 'k6/http';
+import { sleep, group, check, fail } from 'k6';
+import { loginSucesso, loginEmailInvalido, loginSenhaInvalida, loginCamposVazios } from './resources/login.js';
+import { getProdutos } from './resources/produto.js';
+
+export const options = {
+  stages: [
+    { duration: '1m', target: 2 }, // Ramp-up to 10 users over 1 minute
+    // { duration: '3m', target: 10 }, // Stay at 10 users for 3 minutes
+    // { duration: '1m', target: 0 },  // Ramp-down to 0 users over 1 minute
+  ],
+  thresholds: {
+    http_req_duration: ['p(95)<500'], // 95% das requisições devem ser menores que 500ms
+  },
+};
+
+export default function () {
+  group('Login API', function () {
+    group('POST /login - Sucesso', function () {
+      loginSucesso();
+    });
+
+    group('POST /login - E-mail inválido', function () {
+      loginEmailInvalido();
+    });
+
+    group('POST /login - Senha inválida', function () {
+      loginSenhaInvalida();
+    });
+
+    group('POST /login - Campos vazios', function () {
+      loginCamposVazios();
+    });
+
+
+    // group('Product Scenario', function () {
+    //   getProdutos();
+    // });
+
+    sleep(1); // Simula um tempo de espera de 1 segundo entre os grupos
+  });
+}
