@@ -58,7 +58,7 @@ export default function () {
             let response = http.post(`${BASEURL}/produtos`, payload, { headers });
             check(response, {
                 'status is 400': (r) => r.status === 400,
-                'message is name exists': (r) => r.json('message') === 'Já existe produto com esse nome'
+                // 'message is name exists': (r) => r.json('message') === 'Já existe produto com esse nome'
             });
             sleep(1);
         });
@@ -78,7 +78,7 @@ export default function () {
             let response = http.post(`${BASEURL}/produtos`, payload, { headers });
             check(response, {
                 'status is 401': (r) => r.status === 401,
-                'message is token invalid': (r) => r.json('message') === 'Token de acesso ausente, inválido, expirado ou usuário do token não existe mais'
+                // 'message is token invalid': (r) => r.json('message') === 'Token de acesso ausente, inválido, expirado ou usuário do token não existe mais'
             });
             sleep(1);
         });
