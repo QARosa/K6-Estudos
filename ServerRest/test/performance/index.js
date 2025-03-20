@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { sleep, group, check, fail } from 'k6';
 import { loginSucesso, loginSucessoFaker, loginEmailInvalido, loginSenhaInvalida, loginCamposVazios } from './scenarios/login.js';
-// import { getProdutos } from './resources/produto.js';
+import { getIdProdutos, getProdutos } from './resources/produto.js';
 
 export const options = {
   stages: [
@@ -15,31 +15,35 @@ export const options = {
 };
 
 export default function () {
-  group('Login API', function () {
-    group('POST /login - Sucesso', function () {
-      loginSucesso();
+  // group('Login API', function () {
+  //   group('POST /login - Sucesso', function () {
+  //     loginSucesso();
+  //   });
+
+  //   group('POST /login - E-mail inválido', function () {
+  //     loginEmailInvalido();
+  //   });
+
+  //   group('POST /login - Senha inválida', function () {
+  //     loginSenhaInvalida();
+  //   });
+
+  //   group('POST /login - Campos vazios', function () {
+  //     loginCamposVazios();
+  //   });
+
+  //   group('POST /login - SucessoFaker', function () {
+  //     loginSucessoFaker();
+  //   });
+
+  group('Produto', function () {
+    group('lista produtos', function () {
+      getProdutos();
     });
 
-    group('POST /login - E-mail inválido', function () {
-      loginEmailInvalido();
+    group('id produtos', function () {
+      getIdProdutos();
     });
-
-    group('POST /login - Senha inválida', function () {
-      loginSenhaInvalida();
-    });
-
-    group('POST /login - Campos vazios', function () {
-      loginCamposVazios();
-    });
-
-    group('POST /login - SucessoFaker', function () {
-      loginSucessoFaker();
-    });
-
-
-    // group('Product Scenario', function () {
-    //   getProdutos();
-    // });
 
     sleep(1); // Simula um tempo de espera de 1 segundo entre os grupos
   });
