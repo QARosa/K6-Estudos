@@ -2,7 +2,8 @@ import http from 'k6/http';
 import { sleep, group, check, fail } from 'k6';
 import { loginSucesso, loginSucessoFaker, loginEmailInvalido, loginSenhaInvalida, loginCamposVazios } from './scenarios/login.js';
 import { getIdProdutos, getProdutos } from './resources/produto.js';
-import{ getUsuariosAdm, getUsuariosNoAdm, getAllUsuariosScenario } from './scenarios/usuarios.js';
+import { getUsuariosAdm, getUsuariosNoAdm, getAllUsuariosScenario, postUsuariosAdm, postUsuariosNoAdm, deleteUsuarios } from './scenarios/usuarios.js';
+
 export const options = {
   stages: [
     { duration: '5s', target: 2 }, // Ramp-up to 10 users over 1 minute
@@ -49,29 +50,31 @@ export default function () {
   // });
 
 
-    group('Usuários API', function () {
-        group('GET /usuarios?administrador=true', function () {
-            getUsuariosAdm();
-        });
+    // group('Usuários API', function () {
+    //     group('GET /usuarios?administrador=true', function () {
+    //         getUsuariosAdm();
+    //     });
 
-        group('GET /usuarios?administrador=false', function () {
-            getUsuariosNoAdm();
-        });
+    //     group('GET /usuarios?administrador=false', function () {
+    //         getUsuariosNoAdm();
+    //     });
 
-        group('GET /usuarios', function () {
-            getAllUsuariosScenario();
-        });
+    //     group('GET /usuarios', function () {
+    //         getAllUsuariosScenario();
+    //     });
 
-        group('POST /usuarios - Administrador', function () {
-          postUsuariosAdm();
+        // group('POST /usuarios - Administrador', function () {
+        //   postUsuariosAdm  ();
+        // });
+
+        // group('POST /usuarios - Não Administrador', function () {
+        //     postUsuariosNoAdm ();
+        // });
+
+        group('Delete /usuarios - Não Administrador', function () {
+          deleteUsuarios ();
       });
 
-      group('POST /usuarios - Não Administrador', function () {
-          postUsuariosNoAdm();
-      });
-    });
+} 
 
-
-
-}
 
