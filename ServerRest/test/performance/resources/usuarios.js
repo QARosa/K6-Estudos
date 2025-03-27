@@ -47,7 +47,7 @@ export function getAllUsuarios() {
 }
 
 // Função para criar um novo usuário
-export function postUsuarios(nome, email, password, administrador) {
+export function postUsuarios(nome, email, password, administrador, expectedStatus, expectedMessage) {
     let headers = {
         'Content-Type': 'application/json',
         'accept': 'application/json'
@@ -62,38 +62,28 @@ export function postUsuarios(nome, email, password, administrador) {
 
     let response = http.post(`${BASEURL}/usuarios`, payload, { headers });
 
+    // Verificar se a resposta tem o status e a mensagem esperados
     check(response, {
-        'status is 201': (r) => r.status === 201,
-        'Cadastro realizado com sucesso': (r) => r.json().message === 'Cadastro realizado com sucesso',});
-    
+      [`status is ${expectedStatus}`]: (r) => r.status === expectedStatus,
+      [`message is ${expectedMessage}`]: (r) => r.json().message === expectedMessage,
+    });
+  
+    return response; // Retorna o objeto de resposta HTTP
+  }
 
-    if (response.status !== 201) {
-        console.error(`Erro: Status esperado 201, mas recebido ${response.status}`);
+export function deleteUsuarios(userId) {
+    if (!userId) {
+      console.error('Erro: ID inválido ou não fornecido para exclusão.');
+      return;
     }
-
-    sleep(1); // Simula um tempo de espera de 1 segundo entre as requisições
-}
-
-
-export function deleteUsuarios() {
+  
     let headers = {
-        'Content-Type': 'application/json',
-        'accept': 'application/json'
+      'Content-Type': 'application/json',
+      'accept': 'application/json',
     };
+  
+    let response = http.del(`${BASEURL}/usuarios/${userId}`, null, { headers });
 
-    let response = http.del(`${BASEURL}/usuarios/${id}`, null, { headers });
-
-    check(response, {
-        'status is 200': (r) => r.status === 200,
-        'Registro excluído com sucesso': (r) => r.json().message === 'Registro excluído com sucesso',});
-    
-
-        if (response.status !== 200) {
-            console.error(`Erro: Status esperado 200, mas recebido ${response.status}`);
-            console.error(`Resposta da API: ${response.body}`);
-        } else {
-            console.log(`Usuário com ID ${id} excluído com sucesso.`);
-        }
-    
-        sleep(1); // Simula um tempo de espera de 1 segundo entre as requisições
-    }
+    // Retorna o objeto de resposta para ser usado no cenário
+    return response;
+  }
