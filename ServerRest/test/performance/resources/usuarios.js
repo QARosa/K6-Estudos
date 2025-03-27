@@ -87,3 +87,18 @@ export function deleteUsuarios(userId) {
     // Retorna o objeto de resposta para ser usado no cenário
     return response;
   }
+
+  export function putUsuarios(userId, nome, email, password, administrador) {
+    let headers = {
+      'Content-Type': 'application/json',
+      'accept': 'application/json',
+    };
+  
+    let payload = JSON.stringify({
+      nome: nome,
+      email: email,
+      password: password,
+      administrador: administrador,
+    });
+    return http.put(`${BASEURL}/usuarios/${userId}`, payload, { headers });
+  }
