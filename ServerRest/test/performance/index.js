@@ -2,7 +2,9 @@ import http from 'k6/http';
 import { sleep, group, check, fail } from 'k6';
 import { loginSucesso, loginSucessoFaker, loginEmailInvalido, loginSenhaInvalida, loginCamposVazios } from './scenarios/login.js';
 import { getIdProdutos, getProdutos } from './resources/produto.js';
-import { getUsuariosAdm, getUsuariosNoAdm, getAllUsuariosScenario, postUsuariosAdm, postUsuariosNoAdm,criarEExcluirUsuarioAdm,criaAlterUsuarioAdm } from './scenarios/usuarios.js';
+import { getUsuariosAdm, getUsuariosNoAdm, getAllUsuariosScenario, postUsuariosAdm, postUsuariosNoAdm, criarEExcluirUsuarioAdm, criaAlterUsuarioAdm } from './scenarios/usuarios.js';
+import { getAllCarrinhos, getCarrinhos} from './scenarios/carrinho.js';
+
 
 export const options = {
   stages: [
@@ -50,35 +52,38 @@ export default function () {
   // });
 
 
-    // group('Usuários API', function () {
-    //   //   group('GET /usuarios?administrador=true', function () {
-    //   //       getUsuariosAdm();
-    //   //   });
+  // group('Usuários API', function () {
+  //   //   group('GET /usuarios?administrador=true', function () {
+  //   //       getUsuariosAdm();
+  //   //   });
 
-    //   //   group('GET /usuarios?administrador=false', function () {
-    //   //       getUsuariosNoAdm();
-    //   //   });
+  //   //   group('GET /usuarios?administrador=false', function () {
+  //   //       getUsuariosNoAdm();
+  //   //   });
 
-    //   //   group('GET /usuarios', function () {
-    //   //       getAllUsuariosScenario();
-    //   //   });
+  //   //   group('GET /usuarios', function () {
+  //   //       getAllUsuariosScenario();
+  //   //   });
 
-    //   //   group('POST /usuarios - Administrador', function () {
-    //   //     postUsuariosAdm  ();
-    //   //   });
+  //   //   group('POST /usuarios - Administrador', function () {
+  //   //     postUsuariosAdm  ();
+  //   //   });
 
-    //   //   group('POST /usuarios - Não Administrador', function () {
-    //   //       postUsuariosNoAdm ();
-    //   //   });
+  //   //   group('POST /usuarios - Não Administrador', function () {
+  //   //       postUsuariosNoAdm ();
+  //   //   });
 
-    //   //   group('Delete /usuarios - Não Administrador', function () {
-    //   //     criarEExcluirUsuarioAdm ();
-    //   // });
+  //   //   group('Delete /usuarios - Não Administrador', function () {
+  //   //     criarEExcluirUsuarioAdm ();
+  //   // });
 
-      group('Put /usuarios - Não Administrador', function () {
-        criaAlterUsuarioAdm(); 
-      });
+  // group('Put /usuarios - Não Administrador', function () {
+  //   criaAlterUsuarioAdm(); 
+  // });
 
-        sleep(1); // Simula um tempo de espera de 1 segundo entre os grupos
-      } 
-
+  group('Carrinho API', function () {
+    group('GET /carrinhos', function () {
+      getAllCarrinhos();
+    });
+  });
+}
