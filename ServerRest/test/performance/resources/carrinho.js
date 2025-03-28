@@ -12,7 +12,7 @@ export function getCarrinhos() {
         'accept': 'application/json'
     };
 
-    let response = http.get(`https://httpbin.org/get`, { headers });
+    let response = http.get(`${BASEURL}/carrinhos`, { headers });
 
     check(response, {
         'status is 200': (r) => r.status === 200,
