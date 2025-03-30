@@ -3,8 +3,8 @@ import { sleep, group, check, fail } from 'k6';
 import { loginSucesso, loginSucessoFaker, loginEmailInvalido, loginSenhaInvalida, loginCamposVazios } from './scenarios/login.js';
 import { getIdProdutos, getProdutos } from './resources/produto.js';
 import { getUsuariosAdm, getUsuariosNoAdm, getAllUsuariosScenario, postUsuariosAdm, postUsuariosNoAdm, criarEExcluirUsuarioAdm, criaAlterUsuarioAdm } from './scenarios/usuarios.js';
-import { getAllCarrinhos, getCarrinhos} from './scenarios/carrinho.js';
-
+import { getAllCarrinhos, getIdCarrinhos, PostCarrinhosOK } from './scenarios/carrinho.js';
+import { PostCarrinhos } from './resources/carrinho.js';
 
 export const options = {
   stages: [
@@ -81,9 +81,19 @@ export default function () {
   //   criaAlterUsuarioAdm(); 
   // });
 
-  group('Carrinho API', function () {
-    group('GET /carrinhos', function () {
-      getAllCarrinhos();
+  group('Carrinhos API', function () {
+    // group('GET /carrinhos', function () {
+    //   getAllCarrinhos();
+    // });
+
+    // group('GET /carrinhos', function () {
+    //   getIdCarrinhos();
+    // });
+
+    group('Post /carrinhos', function () {
+      PostCarrinhos();
     });
-  });
+  
+    sleep(1); // Simula um tempo de espera de 1 segundo entre os grupos
+    });
 }

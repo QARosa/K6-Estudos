@@ -3,7 +3,7 @@ import { check, sleep } from 'k6';
 import { BASEURL } from '../utils.js';
 
 
-export function postLogin(email, password, expectedStatus, expectedMessage) {
+export function postLogin(email, password, expectedStatus) {
     let headers = {
         'Content-Type': 'application/json',
         'accept': 'application/json'
