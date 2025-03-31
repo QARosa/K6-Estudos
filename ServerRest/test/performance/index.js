@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { sleep, group, check, fail } from 'k6';
 import { loginSucesso, loginSucessoFaker, loginEmailInvalido, loginSenhaInvalida, loginCamposVazios } from './scenarios/login.js';
-import { getIdProdutos, getProdutos } from './resources/produto.js';
+import { postProdutosComSucesso,postProdutoUser } from './scenarios/produto.js';
 import { getUsuariosAdm, getUsuariosNoAdm, getAllUsuariosScenario, postUsuariosAdm, postUsuariosNoAdm, criarEExcluirUsuarioAdm, criaAlterUsuarioAdm } from './scenarios/usuarios.js';
 import { getAllCarrinhos, getIdCarrinhos, PostCarrinhosOK } from './scenarios/carrinho.js';
 import { PostCarrinhos } from './resources/carrinho.js';
@@ -23,77 +23,86 @@ export default function () {
   //     loginSucesso();
   //   });
 
-  //   group('POST /login - E-mail inválido', function () {
-  //     loginEmailInvalido();
-  //   });
+    //   group('POST /login - E-mail inválido', function () {
+    //     loginEmailInvalido();
+    //   });
 
-  //   group('POST /login - Senha inválida', function () {
-  //     loginSenhaInvalida();
-  //   });
+    //   group('POST /login - Senha inválida', function () {
+    //     loginSenhaInvalida();
+    //   });
 
-  //   group('POST /login - Campos vazios', function () {
-  //     loginCamposVazios();
-  //   });
+    //   group('POST /login - Campos vazios', function () {
+    //     loginCamposVazios();
+    //   });
 
-  //   group('POST /login - SucessoFaker', function () {
-  //     loginSucessoFaker();
-  //   });
+    //   group('POST /login - SucessoFaker', function () {
+    //     loginSucessoFaker();
+    //   });
 
-  // group('Produto', function () {
-  //   group('lista produtos', function () {
-  //     getProdutos();
-  //   });
+    group('Produto', function () {
+    //   group('lista produtos', function () {
+    //     getProdutos();
+    //   });
 
-  //   group('id produtos', function () {
-  //     getIdProdutos();
-  //   });
+    //   group('id produtos', function () {
+    //     getIdProdutos();
+    //   });
 
-  //   sleep(1); // Simula um tempo de espera de 1 segundo entre os grupos
-  // });
+      group('Admin Cadastro Produto', function () {
+        postProdutosComSucesso();
+     });
+
+     group('User Cadastro Produto', function () {
+      postProdutoUser();
+   });
 
 
-  // group('Usuários API', function () {
-  //   //   group('GET /usuarios?administrador=true', function () {
-  //   //       getUsuariosAdm();
-  //   //   });
-
-  //   //   group('GET /usuarios?administrador=false', function () {
-  //   //       getUsuariosNoAdm();
-  //   //   });
-
-  //   //   group('GET /usuarios', function () {
-  //   //       getAllUsuariosScenario();
-  //   //   });
-
-  //   //   group('POST /usuarios - Administrador', function () {
-  //   //     postUsuariosAdm  ();
-  //   //   });
-
-  //   //   group('POST /usuarios - Não Administrador', function () {
-  //   //       postUsuariosNoAdm ();
-  //   //   });
-
-  //   //   group('Delete /usuarios - Não Administrador', function () {
-  //   //     criarEExcluirUsuarioAdm ();
-  //   // });
-
-  // group('Put /usuarios - Não Administrador', function () {
-  //   criaAlterUsuarioAdm(); 
-  // });
-
-  group('Carrinhos API', function () {
-    // group('GET /carrinhos', function () {
-    //   getAllCarrinhos();
+    //   sleep(1); // Simula um tempo de espera de 1 segundo entre os grupos
     // });
 
-    // group('GET /carrinhos', function () {
-    //   getIdCarrinhos();
+
+    // group('Usuários API', function () {
+    //   //   group('GET /usuarios?administrador=true', function () {
+    //   //       getUsuariosAdm();
+    //   //   });
+
+    //   //   group('GET /usuarios?administrador=false', function () {
+    //   //       getUsuariosNoAdm();
+    //   //   });
+
+    //   //   group('GET /usuarios', function () {
+    //   //       getAllUsuariosScenario();
+    //   //   });
+
+    //   //   group('POST /usuarios - Administrador', function () {
+    //   //     postUsuariosAdm  ();
+    //   //   });
+
+    //   //   group('POST /usuarios - Não Administrador', function () {
+    //   //       postUsuariosNoAdm ();
+    //   //   });
+
+    //   //   group('Delete /usuarios - Não Administrador', function () {
+    //   //     criarEExcluirUsuarioAdm ();
+    //   // });
+
+    // group('Put /usuarios - Não Administrador', function () {
+    //   criaAlterUsuarioAdm(); 
     // });
 
-    group('Post /carrinhos', function () {
-      PostCarrinhos();
-    });
-  
-    sleep(1); // Simula um tempo de espera de 1 segundo entre os grupos
-    });
+    // group('Carrinhos API', function () {
+    //   // group('GET /carrinhos', function () {
+    //   //   getAllCarrinhos();
+    //   // });
+
+    //   // group('GET /carrinhos', function () {
+    //   //   getIdCarrinhos();
+    //   // });
+
+    //   group('Post /carrinhos', function () {
+    //     PostCarrinhos();
+    //   });
+
+    //   sleep(1); // Simula um tempo de espera de 1 segundo entre os grupos
+  });
 }
