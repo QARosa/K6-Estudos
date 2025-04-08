@@ -7,7 +7,7 @@ export function postProdutos(nome, preco, descricao, quantidade, expectedStatus,
     let headers = {
         'Content-Type': 'application/json',
         'accept': 'application/json',
-        'Authorization': `Bearer ${authorization}`
+        'Authorization': authorization
     };
     let payload = JSON.stringify({
         "nome": nome,

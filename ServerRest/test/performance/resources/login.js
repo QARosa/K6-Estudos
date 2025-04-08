@@ -6,7 +6,7 @@ import { BASEURL } from '../utils.js';
 export function postLogin(email, password, expectedStatus) {
     let headers = {
         'Content-Type': 'application/json',
-        'accept': 'application/json'
+        'accept': 'application/json',
     };
     let payload = JSON.stringify({
         email: email,

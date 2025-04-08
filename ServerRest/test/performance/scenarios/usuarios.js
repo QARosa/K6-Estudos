@@ -1,6 +1,6 @@
 import { group } from 'k6';
 import { SharedArray } from "k6/data"
-import { getUsuarios, getAllUsuarios, postUsuarios,deleteUsuarios,putUsuarios } from '../resources/usuarios.js';
+import{postUsuarios} from '../resources/usuarios.js';
 import { randomItem,randomString, randomIntBetween } from "https://jslib.k6.io/k6-utils/1.4.0/index.js"
 
 
@@ -27,18 +27,19 @@ export function getAllUsuariosScenario() {
 }
 
 export function postUsuariosAdm() {
-  let usuario = randomItem(usuarios);
-  let nome = "Fulano da Silva";
-  let email = generateUniqueEmail(); 
-  let password = "teste";
-  let administrador = "true";
+  let email = `admin_${randomIntBetween(1, 100000)}@qa.com`;
+  let password = 'teste';
+  let administrador = 'true';
 
   console.log(`Criando usuário administrador: ${email}`);
-  let response = postUsuarios(nome, email, password, administrador, 201, 'Cadastro realizado com sucesso');
+  let response = postUsuarios('Admin User', email, password, administrador, 201, 'Cadastro realizado com sucesso');
 
-  let userId = response.json('_id');
-  console.log(`Usuário administrador criado com ID: ${userId}`);
-  return userId; // Retorna o ID para uso posterior
+  if (response.status !== 201) {
+      console.error(`Erro ao criar usuário administrador: ${response.body}`);
+      return null;
+  }
+
+  return { email, password }; // Retorna o e-mail e a senha do usuário criado
 }
 
 export function postUsuariosNoAdm() {
@@ -51,7 +52,7 @@ export function postUsuariosNoAdm() {
   let response = postUsuarios(nome, email, password, administrador, 201, 'Cadastro realizado com sucesso');
 
   let userId = response.json('_id');
-  console.log(`Usuário administrador criado com ID: ${userId}`);
+  console.log(`Usuário administrador criado com email: ${userId}`);
   return userId; // Retorna o ID para uso posterior
 }
 

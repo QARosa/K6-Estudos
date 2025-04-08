@@ -68,9 +68,7 @@ export function postUsuarios(nome, email, password, administrador, expectedStatu
       [`message is ${expectedMessage}`]: (r) => r.json().message === expectedMessage,
     });
   
-    sleep(1);
-    let _id = response.json('_id');
-    return _id;
+    return response; // Retorna o objeto de resposta HTTP
   }
 
 export function deleteUsuarios(userId) {

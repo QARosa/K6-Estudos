@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { sleep, group, check, fail } from 'k6';
 import { loginSucesso, loginSucessoFaker, loginEmailInvalido, loginSenhaInvalida, loginCamposVazios } from './scenarios/login.js';
-import { postProdutosComSucesso, postProdutoUser } from './scenarios/produto.js';
+import { AdminCriarProduto } from './scenarios/produto.js';
 import { getUsuariosAdm, getUsuariosNoAdm, getAllUsuariosScenario, postUsuariosAdm, postUsuariosNoAdm, criarEExcluirUsuarioAdm, criaAlterUsuarioAdm } from './scenarios/usuarios.js';
 import { getAllCarrinhos, getIdCarrinhos, PostCarrinhosOK } from './scenarios/carrinho.js';
 import { PostCarrinhos } from './resources/carrinho.js';
@@ -23,7 +23,7 @@ export const options = {
       executor: 'constant-arrival-rate',
       rate: 1, // 1 requisição por segundo
       timeUnit: '1s', // por segundo
-      duration: '1m', // duração do teste
+      duration: '30s', // duração do teste
       preAllocatedVUs: 1, // número de VUs pré-alocados
       maxVUs: 10, // número máximo de VUs
       exec: 'produtoApi', // função a ser executada
