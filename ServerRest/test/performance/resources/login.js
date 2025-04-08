@@ -18,7 +18,7 @@ export function postLogin(email, password, expectedStatus) {
         // [`message is ${expectedMessage}`]: (r) => r.json('message') === expectedMessage        
     });
     let authorization = response.json('authorization');
-    return authorization;
     sleep(1);
+    return authorization;
 }
 

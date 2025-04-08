@@ -13,3 +13,8 @@ POST /produtos - Não administrador: Testa a criação de um produto por um usu�
 GET /produtos/{_id}: Testa a busca de um produto por ID.
 PUT /produtos/{_id}: Testa a atualização de um produto.
 DELETE /produtos/{_id}: Testa a exclusão de um produto.
+
+
+
+pesquisar copilot-instructions.md
+
