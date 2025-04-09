@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { sleep, group, check, fail } from 'k6';
 import { loginSucesso, loginSucessoFaker, loginEmailInvalido, loginSenhaInvalida, loginCamposVazios } from './scenarios/login.js';
-import { AdminCriarProduto } from './scenarios/produto.js';
+import { AdminCriarProduto, consultarIdProdutos, consultarAllProdutos,deletarProdutos } from './scenarios/produto.js';
 import { getUsuariosAdm, getUsuariosNoAdm, getAllUsuariosScenario, postUsuariosAdm, postUsuariosNoAdm, criarEExcluirUsuarioAdm, criaAlterUsuarioAdm } from './scenarios/usuarios.js';
 import { getAllCarrinhos, getIdCarrinhos, PostCarrinhosOK } from './scenarios/carrinho.js';
 import { PostCarrinhos } from './resources/carrinho.js';
@@ -64,23 +64,23 @@ export const options = {
 //   });
 
   export function produtoApi() {
-    group('Produto', function () {
-    //   group('lista produtos', function () {
-    //     getProdutos();
+    // group('Produto', function () {
+    //   group('Produto por ID', function () {
+    //     consultarIdProdutos();
     //   });
 
-    //   group('id produtos', function () {
-    //     getIdProdutos();
+    //   group('consulta todos produtos', function () {
+    //     consultarAllProdutos();
     //   });
 
-      group('Admin Cadastro Produto', function () {
-        AdminCriarProduto();
-     });
+    //   group('Admin Cadastro Produto', function () {
+    //     AdminCriarProduto();
+    //  });
 
-  //    group('User Cadastro Produto', function () {
-  //     postProdutoUser();
-  //  });
-  });
+     group('Delete Produto', function () {
+      deletarProdutos();
+   });
+
 
 
   //   //   sleep(1); // Simula um tempo de espera de 1 segundo entre os grupos
