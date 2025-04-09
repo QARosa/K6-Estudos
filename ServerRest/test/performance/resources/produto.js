@@ -31,35 +31,43 @@ export function postProdutos(nome, preco, descricao, quantidade, expectedStatus,
     let headers = {
         'Content-Type': 'application/json',
         'accept': 'application/json',
-        'Authorization': authorization
+        'Authorization': authorization,
     };
+
     let payload = JSON.stringify({
-        "nome": nome,
-        "preco": preco,
-        "descricao": descricao,
-        "quantidade": quantidade
-      });
+        nome: nome,
+        preco: preco,
+        descricao: descricao,
+        quantidade: quantidade,
+    });
+
+    console.log(`Enviando requisição para criar produto: ${nome}`);
     let response = http.post(`${BASEURL}/produtos`, payload, { headers });
+
     check(response, {
         [`status is ${expectedStatus}`]: (r) => r.status === expectedStatus,
-        [`message is ${expectedMessage}`]: (r) => r.json('message') === expectedMessage        
+        [`message is ${expectedMessage}`]: (r) => r.json().message === expectedMessage,
     });
-    sleep(1);
-    let _id = response.json('_id');
-    return _id;
+
+    if (response.status !== expectedStatus) {
+        console.error(`Erro ao criar produto: ${response.body}`);
+        return null;
+    }
+
+    return response; // Retorna o objeto de resposta HTTP
 }
 
-export function deleteProdutos(authorization,produtoId, expectedStatus, expectedMessage) {
+export function deleteProdutos(authorization, produtoId, expectedStatus, expectedMessage) {
     
     let headers = {
       'Content-Type': 'application/json',
       'accept': 'application/json',
-      'Authorization': authorization
-      
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzgxNTIyQHFhLmNvbSIsInBhc3N3b3JkIjoidGVzdGUiLCJpYXQiOjE3NDQxNjcxNDUsImV4cCI6MTc0NDE2Nzc0NX0.QMZ3X8OHGSpwdotXvkFIt8opGR9Dx59KtXkpKUOosjQ'
+    //   'Authorization': authorization,      
     };
   
     console.log(`Enviando requisição para excluir produto com ID: ${produtoId}`);
-    let response = http.del(`${BASEURL}/produtos/${produtoId}`, null, { headers });
+        let response = http.del(`${BASEURL}/produtos/${produtoId}`,null, { headers });
 
     check(response, {
         [`status is ${expectedStatus}`]: (r) => r.status === expectedStatus,
