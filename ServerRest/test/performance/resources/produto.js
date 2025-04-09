@@ -62,8 +62,8 @@ export function deleteProdutos(authorization, produtoId, expectedStatus, expecte
     let headers = {
       'Content-Type': 'application/json',
       'accept': 'application/json',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzgxNTIyQHFhLmNvbSIsInBhc3N3b3JkIjoidGVzdGUiLCJpYXQiOjE3NDQxNjcxNDUsImV4cCI6MTc0NDE2Nzc0NX0.QMZ3X8OHGSpwdotXvkFIt8opGR9Dx59KtXkpKUOosjQ'
-    //   'Authorization': authorization,      
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzcwNTFAcWEuY29tIiwicGFzc3dvcmQiOiJ0ZXN0ZSIsImlhdCI6MTc0NDE2Nzg3NywiZXhwIjoxNzQ0MTY4NDc3fQ.fONpeRrdrzXLjle3MMQewz0_2j0qqxMnxlkNf6q0Oyw'
+       //'Authorization': authorization --não está funcionando nesse formato     
     };
   
     console.log(`Enviando requisição para excluir produto com ID: ${produtoId}`);

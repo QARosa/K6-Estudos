@@ -79,10 +79,10 @@ export function deletarProdutos() {
         return;
     }
 
-    // Verificar se a exclusão foi bem-sucedida
+    // Verificar se a exclusão foi bem-sucedida--não está sendo exluido pq aparesenta na consulta do swager
     check(response, {
         'status is 200': (r) => r.status === 200,
-        'Registro excluído com sucesso': (r) => r.json().message === 'Nenhum registro excluído',
+        'Registro excluído com sucesso': (r) => r.json().message === "Registro excluído com sucesso | Nenhum registro excluído",
     });
 
     if (response.status !== 200) {
