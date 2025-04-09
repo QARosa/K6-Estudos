@@ -139,9 +139,11 @@ export const options = {
 //   // 2. Criar um usuário administrador
 //   // 1. Login com usuário administrador
 //   // 3. Criação de um produto
-//   // 4. Criar um carrinho
-//   // 5. Realizar checkout do carrinho
-//   // 6. Criar um pedido
+//   // 4. Alterar o produto
+//   // 5. Excluir o produto
+//   // 6. Criar um carrinho
+//   // 7. Realizar checkout do carrinho
+//   // 8. Criar um pedido
 
 //   // loginSucesso (); //executar o 
 

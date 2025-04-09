@@ -17,27 +17,27 @@ export function consultarAllProdutos() {
 
 }
 
-export function AdminCriarProduto() {
-    console.log('Iniciando teste para criar produto com sucesso...');
+export function AdminCriarProduto(authorization) {
+    // console.log('Iniciando teste para criar produto com sucesso...');
   
-    // Criar usuário administrador e obter e-mail e senha
-    let admin = postUsuariosAdm();
-    if (!admin || !admin.email || !admin.password) {
-        console.error('Erro: Não foi possível criar o usuário administrador.');
-        return null;
-    }
+    // // Criar usuário administrador e obter e-mail e senha
+    // let admin = postUsuariosAdm();
+    // if (!admin || !admin.email || !admin.password) {
+    //     console.error('Erro: Não foi possível criar o usuário administrador.');
+    //     return null;
+    // }
   
-    let email = admin.email;
-    let password = admin.password;
-    console.log(`Usuário administrador criado com e-mail: ${email}`);
+    // let email = admin.email;
+    // let password = admin.password;
+    // console.log(`Usuário administrador criado com e-mail: ${email}`);
   
-    // Realiza o login e obtém o token de autenticação
-    let authorization = postLogin(email, password, 200, 'Login realizado com sucesso');
-    if (!authorization) {
-        console.error('Erro: Não foi possível obter o token de autenticação.');
-        return null;
-    }
-    console.log(`Token de autenticação: ${authorization}`);
+    // // Realiza o login e obtém o token de autenticação
+    // let authorization = postLogin(email, password, 200, 'Login realizado com sucesso');
+    // if (!authorization) {
+    //     console.error('Erro: Não foi possível obter o token de autenticação.');
+    //     return null;
+    // }
+    // console.log(`Token de autenticação: ${authorization}`);
 
     // Criar um produto usando o token
     let nome = "Teste Produto " + randomIntBetween(1, 100000); // Nome único para cada execução
@@ -58,18 +58,18 @@ export function AdminCriarProduto() {
     return produtoId; // Retorna apenas o ID do produto criado
 }
 
-export function deletarProdutos() {
-    console.log('Iniciando teste para excluir produto...');
+export function deletarProdutos(authorization) {
+    // console.log('Iniciando teste para excluir produto...');
 
-    // Criar um produto com perfil administrador e salvar o ID
-    let produtoId = AdminCriarProduto();
+    // // Criar um produto com perfil administrador e salvar o ID
+    // let produtoId = AdminCriarProduto();
 
-    if (!produtoId) {
-        console.error('Erro: Não foi possível criar o produto para exclusão.');
-        return;
-    }
+    // if (!produtoId) {
+    //     console.error('Erro: Não foi possível criar o produto para exclusão.');
+    //     return;
+    // }
 
-    console.log(`Produto criado com sucesso. ID: ${produtoId}`);
+    // console.log(`Produto criado com sucesso. ID: ${produtoId}`);
 
     // Excluir o produto criado
     let response = deleteProdutos(produtoId, 200, 'Registro excluído com sucesso'); // Chama a função de recurso para exclusão
