@@ -1,10 +1,7 @@
 import http from 'k6/http';
 import { sleep, group, check, fail } from 'k6';
-import { loginAdmin } from './scenarios/login.js';
-import { AdminCriarProduto, consultarIdProdutos, consultarAllProdutos,deletarProdutos,idproduto } from './scenarios/produto.js';
-import { getUsuariosAdm, getUsuariosNoAdm, getAllUsuariosScenario, postUsuariosAdm, postUsuariosNoAdm, criarEExcluirUsuarioAdm, criaAlterUsuarioAdm } from './scenarios/usuarios.js';
-import { getAllCarrinhos, getIdCarrinhos, PostCarrinhosOK } from './scenarios/carrinho.js';
-import { PostCarrinhos } from './resources/carrinho.js';
+import { loginEmailInvalido,loginSenhaInvalida,loginCamposVazios,loginUser, loginAdmin} from './scenarios/login.js';
+import { postUsuariosAdm, postUsuariosNoAdm} from './scenarios/usuarios.js';
 
 export const options = {
   scenarios: {
@@ -14,7 +11,7 @@ export const options = {
       executor: 'constant-arrival-rate',
       rate: 1, // 1 requisição por segundo
       timeUnit: '1s', // por segundo
-      duration: '1m', // duração do teste
+      duration: '20s', // duração do teste
       preAllocatedVUs: 1, // número de VUs pré-alocados
       maxVUs: 10, // número máximo de VUs
       exec: 'loginApi', // função a ser executada
@@ -42,11 +39,7 @@ export const options = {
 
 export function loginApi() {
   group('Login API', function () {
-    group('POST /login - Sucesso', function () {
-      loginSucesso();
-    });
-
-    group('POST /login - E-mail inválido', function () {
+     group('POST /login - E-mail inválido', function () {
       loginEmailInvalido();
     });
 
@@ -59,12 +52,12 @@ export function loginApi() {
     });
 
     group('POST /login - Login User', function () {
-      let [email,senha] = postUsuariosAdm(email,senha)
+      postUsuariosAdm()
       loginUser();
     });
 
     group('POST /login - Login Admin', function () {
-      let [email,senha] = postUsuariosNoAdm(email,senha)
+      postUsuariosNoAdm()
       loginAdmin();
     });
 
