@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { sleep, group, check, fail } from 'k6';
-import { loginSucesso, loginSucessoFaker, loginEmailInvalido, loginSenhaInvalida, loginCamposVazios } from './scenarios/login.js';
-import { AdminCriarProduto, consultarIdProdutos, consultarAllProdutos,deletarProdutos } from './scenarios/produto.js';
+import { loginAdmin } from './scenarios/login.js';
+import { AdminCriarProduto, consultarIdProdutos, consultarAllProdutos,deletarProdutos,idproduto } from './scenarios/produto.js';
 import { getUsuariosAdm, getUsuariosNoAdm, getAllUsuariosScenario, postUsuariosAdm, postUsuariosNoAdm, criarEExcluirUsuarioAdm, criaAlterUsuarioAdm } from './scenarios/usuarios.js';
 import { getAllCarrinhos, getIdCarrinhos, PostCarrinhosOK } from './scenarios/carrinho.js';
 import { PostCarrinhos } from './resources/carrinho.js';
@@ -10,24 +10,24 @@ export const options = {
   scenarios: {
     //a ordenação dos testes será referenciada pela ordem descrita no cenário
     //o nome do cenário é o mesmo nome da função que será executada
-    // loginApi: {
-    //   executor: 'constant-arrival-rate',
-    //   rate: 1, // 1 requisição por segundo
-    //   timeUnit: '1s', // por segundo
-    //   duration: '1m', // duração do teste
-    //   preAllocatedVUs: 1, // número de VUs pré-alocados
-    //   maxVUs: 10, // número máximo de VUs
-    //   exec: 'loginApi', // função a ser executada
-    // },
-    produtoApi: {
+    loginApi: {
       executor: 'constant-arrival-rate',
       rate: 1, // 1 requisição por segundo
       timeUnit: '1s', // por segundo
-      duration: '30s', // duração do teste
+      duration: '1m', // duração do teste
       preAllocatedVUs: 1, // número de VUs pré-alocados
       maxVUs: 10, // número máximo de VUs
-      exec: 'produtoApi', // função a ser executada
-    },
+      exec: 'loginApi', // função a ser executada
+    }
+    // produtoApi: {
+    //   executor: 'constant-arrival-rate',
+    //   rate: 1, // 1 requisição por segundo
+    //   timeUnit: '1s', // por segundo
+    //   duration: '30s', // duração do teste
+    //   preAllocatedVUs: 1, // número de VUs pré-alocados
+    //   maxVUs: 10, // número máximo de VUs
+    //   exec: 'produtoApi', // função a ser executada
+    // },
     // ecommercePerfmormance: {  
     //   executor: 'ramping-vus',
     //   startVUs:1, // número de VUs
@@ -40,46 +40,57 @@ export const options = {
   },
 }
 
-// export function loginApi() {
-//   group('Login API', function () {
-//     group('POST /login - Sucesso', function () {
-//       loginSucesso();
-//     });
+export function loginApi() {
+  group('Login API', function () {
+    group('POST /login - Sucesso', function () {
+      loginSucesso();
+    });
 
-//     group('POST /login - E-mail inválido', function () {
-//       loginEmailInvalido();
-//     });
+    group('POST /login - E-mail inválido', function () {
+      loginEmailInvalido();
+    });
 
-//     group('POST /login - Senha inválida', function () {
-//       loginSenhaInvalida();
-//     });
+    group('POST /login - Senha inválida', function () {
+      loginSenhaInvalida();
+    });
 
-//     group('POST /login - Campos vazios', function () {
-//       loginCamposVazios();
-//     });
+    group('POST /login - Campos vazios', function () {
+      loginCamposVazios();
+    });
 
-//     group('POST /login - SucessoFaker', function () {
-//       loginSucessoFaker();
-//     });
-//   });
+    group('POST /login - Login User', function () {
+      let [email,senha] = postUsuariosAdm(email,senha)
+      loginUser();
+    });
 
-  export function produtoApi() {
-    // group('Produto', function () {
-    //   group('Produto por ID', function () {
-    //     consultarIdProdutos();
-    //   });
+    group('POST /login - Login Admin', function () {
+      let [email,senha] = postUsuariosNoAdm(email,senha)
+      loginAdmin();
+    });
 
-    //   group('consulta todos produtos', function () {
-    //     consultarAllProdutos();
-    //   });
+  });
 
-    //   group('Admin Cadastro Produto', function () {
-    //     AdminCriarProduto();
-    //  });
+  // export function produtoApi() {
+  //   // group('Produto', function () {
+  //   //   group('Produto por ID', function () {
+  //   //     consultarIdProdutos();
+  //   //   });
 
-     group('Delete Produto', function () {
-      deletarProdutos();
-   });
+  //   //   group('consulta todos produtos', function () {
+  //   //     consultarAllProdutos();
+  //   //   });
+
+  //   //   group('Admin Cadastro Produto', function () {
+  //   //     AdminCriarProduto();
+  //   //  });
+
+  //    group('Delete Produto', function () {
+  //    let [email,senha] = postUsuariosAdm();//email e senha do admin
+  //    let adminauthorization = loginAdmin(email,senha);
+  //    let produtoId = AdminCriarProduto(adminauthorization);
+  //    let deletarProdutos = deletarProdutos(adminauthorization, produtoId);
+  //    console.log(`Produto excluído com sucesso. ID: ${produtoId}`);
+  //  });
 
 
 

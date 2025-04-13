@@ -23,6 +23,8 @@ export function getProdutos(queryParams, expectedStatus) {
             'id encontrado BeeJh5lz3k6kSIzA': (r) => r.json().produtos[0]._id === 'BeeJh5lz3k6kSIzA',
         });
     }
+    let idproduto = response.json().produtos[0]._id;
+    return idproduto
 
     sleep(1); 
 }
@@ -62,8 +64,7 @@ export function deleteProdutos(authorization, produtoId, expectedStatus, expecte
     let headers = {
       'Content-Type': 'application/json',
       'accept': 'application/json',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzcwNTFAcWEuY29tIiwicGFzc3dvcmQiOiJ0ZXN0ZSIsImlhdCI6MTc0NDE2Nzg3NywiZXhwIjoxNzQ0MTY4NDc3fQ.fONpeRrdrzXLjle3MMQewz0_2j0qqxMnxlkNf6q0Oyw'
-       //'Authorization': authorization --não está funcionando nesse formato     
+      'Authorization': authorization // Adiciona o cabeçalho de autorização   
     };
   
     console.log(`Enviando requisição para excluir produto com ID: ${produtoId}`);

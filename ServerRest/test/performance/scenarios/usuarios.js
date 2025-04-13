@@ -39,7 +39,7 @@ export function postUsuariosAdm() {
       return null;
   }
 
-  return { email, password }; // Retorna o e-mail e a senha do usuário criado
+  return [email, password]; // Retorna o e-mail e a senha do usuário criado
 }
 
 export function postUsuariosNoAdm() {
@@ -53,7 +53,7 @@ export function postUsuariosNoAdm() {
 
   let userId = response.json('_id');
   console.log(`Usuário administrador criado com email: ${userId}`);
-  return userId; // Retorna o ID para uso posterior
+  return [email, password]; // Retorna o ID para uso posterior
 }
 
 export function deleteUsuarioScenario() {

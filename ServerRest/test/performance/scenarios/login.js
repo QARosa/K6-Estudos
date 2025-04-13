@@ -12,20 +12,12 @@ const usuarios = new SharedArray("usuarios", function () {
 })
 
 
-export function loginSucesso() {
-   let email = randomItem(usuarios).email
-   let senha = randomItem(usuarios).senha
-   console.log(email) 
-   console.log(senha)
-   postLogin(email, senha, 200, 'Login realizado com sucesso');
-}
-
 export function loginSucessoFaker() {
     let email = `${randomString(10)}@email.com`
     let senha = `${randomIntBetween(1,400)}`
     console.log(email) 
     console.log(senha)
-    postLogin(email, senha, 401, 'Login realizado com sucesso');
+    ///postLogin(email, senha, 401, 'validar mensagem de erro');
  }
 
 export function loginEmailInvalido() {
@@ -42,3 +34,22 @@ export function loginCamposVazios() {
     postLogin("", "", 400);
 }
 
+
+export function loginUser() {
+    let email = randomItem(usuarios).email
+    let senha = randomItem(usuarios).senha
+    console.log(email) 
+    console.log(senha)
+    let userauthorization = postLogin(email, senha, 200, 'Login realizado com sucesso');
+    return userauthorization
+}
+
+///criar dois scenarios com perfils de admin e usuario comum
+export function loginAdmin() {
+    let email = randomItem(usuarios).email
+    let senha = randomItem(usuarios).senha
+    console.log(email) 
+    console.log(senha)
+    let adminauthorization = postLogin(email, senha, 200, 'Login realizado com sucesso');
+    return adminauthorization
+}

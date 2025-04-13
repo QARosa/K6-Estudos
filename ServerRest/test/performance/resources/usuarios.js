@@ -30,7 +30,7 @@ export function getUsuarios(queryParams, expectedStatus, expectedAdminStatus) {
     sleep(1); 
 }
 
-export function getAllUsuarios() {
+export function getAllUsuarios(expectedStatus, expectedAdminStatus) {
     let headers = {
         'Content-Type': 'application/json',
         'accept': 'application/json'
@@ -39,11 +39,11 @@ export function getAllUsuarios() {
     let response = http.get(`${BASEURL}/usuarios`, { headers });
 
     check(response, {
-        'status is 200': (r) => r.status === 200,
-        'quantidade is greater than 0': (r) => r.json().quantidade > 0,
-    });
+      [`status is ${expectedStatus}`]: (r) => r.status === expectedStatus,
+      [`administrador is ${expectedAdminStatus}`]: (r) => r.json().usuarios.every(user => user.administrador === expectedAdminStatus),
+  });
 
-    sleep(1); 
+  sleep(1); 
 }
 
 // Função para criar um novo usuário
