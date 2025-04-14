@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { sleep, group, check, fail } from 'k6';
 import { loginEmailInvalido, loginSenhaInvalida, loginCamposVazios, loginUser, loginAdmin } from './scenarios/login.js';
-import { ConsultarAdmin, ConsultarUsers,ConsultarTodos,postUsuariosAdm,postUsuariosNoAdm,deleteUsuarioScenario } from './scenarios/usuarios.js';
+import { ConsultarAdmin, ConsultarUsers,ConsultarTodos,postUsuariosAdm,postUsuariosNoAdm,deletarUsuario, AlterarUsuario } from './scenarios/usuarios.js';
 
 export const options = {
   scenarios: {
@@ -62,39 +62,41 @@ export function loginApi() {
   //   });
   // });
 
-    group('Usuários API', function () {
+  group('Usuários API', function () {
 
-      group('GET /admin', function () {
-        ConsultarAdmin();
-      });
+      // group('GET /admin', function () {
+      //   ConsultarAdmin();
+      // });
 
-      group('GET /users', function () {
-        ConsultarUsers();
-      });
+      // group('GET /users', function () {
+      //   ConsultarUsers();
+      // });
 
-      group('GET /todos', function () {
-        ConsultarTodos();
-      });
+      // group('GET /todos', function () {
+      //   ConsultarTodos();
+      // });
 
-      group('POST /usuarios - Administrador', function () {
-        postUsuariosAdm();
-      });
-      group('POST /usuarios - Não Administrador', function () {
-        postUsuariosNoAdm();
-      });
+      // group('POST /usuarios - Administrador', function () {
+      //   postUsuariosAdm();
+      // });
+      // group('POST /usuarios - Não Administrador', function () {
+      //   postUsuariosNoAdm();
+      // });
 
-      group('DELETE/ Cenário de Exclusão de Usuários', function () {
-        let [email, password, userId] = postUsuariosNoAdm();
-    if (!userId) {
-        console.error('Erro: Não foi possível criar o usuário para exclusão.');
-        return;
-    }
+      // group('DELETE/ Cenário de exclusão de usuários', function () {
+      //   let [email, password, userId] = postUsuariosNoAdm();
+      //   deletarUsuario(userId);
+      // });
 
-    console.log(`Usuário criado com sucesso. ID: ${userId}`);
-    deleteUsuarioScenario(userId);
-      });
-
-     
+      // group('UPDATE/ Cenário de alteração de usuários', function () {
+      //   let [email, password, userId] = postUsuariosNoAdm();
+      //   AlterarUsuario(userId);
+      // });     
     }
   );
+
+//   group('Produtos API', function () {
+
+//   }
+// );
 }   

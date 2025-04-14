@@ -55,8 +55,8 @@ export function postUsuarios(nome, email, password, administrador, expectedStatu
 
 export function deleteUsuarios(userId, expectedStatus, expectedMessage) {
   let headers = {
-    "Content-Type": "application/json",
-    accept: "application/json",
+    'Content-Type': 'application/json',
+    'accept': 'application/json',
   };
 
   console.log(`Enviando requisição para excluir usuário com ID: ${userId}`);
@@ -64,23 +64,30 @@ export function deleteUsuarios(userId, expectedStatus, expectedMessage) {
 
   check(response, {
     [`status is ${expectedStatus}`]: (r) => r.status === expectedStatus,
-    [`message is ${expectedMessage}`]: (r) =>
-      r.json().message === expectedMessage,
+    [`message is ${expectedMessage}`]: (r) => r.json().message === expectedMessage,
   });
 
   return response; // Retorna o objeto de resposta HTTP
 }
-// export function putUsuarios(userId, nome, email, password, administrador) {
-//   let headers = {
-//     'Content-Type': 'application/json',
-//     'accept': 'application/json',
-//   };
+export function putUsuarios(userId, nome, email, password, administrador,expectedStatus, expectedMessage) {
+  let headers = {
+    'Content-Type': 'application/json',
+    'accept': 'application/json',
+  };
 
-//   let payload = JSON.stringify({
-//     nome: nome,
-//     email: email,
-//     password: password,
-//     administrador: administrador,
-//   });
-//   return http.put(`${BASEURL}/usuarios/${userId}`, payload, { headers });
-// }
+  let payload = JSON.stringify({
+    nome: nome,
+    email: email,
+    password: password,
+    administrador: administrador,
+  });
+
+  let response = http.put(`${BASEURL}/usuarios/${userId}`, payload, { headers });
+
+  check(response, {
+    [`status is ${expectedStatus}`]: (r) => r.status === expectedStatus,
+    [`message is ${expectedMessage}`]: (r) => r.json().message === expectedMessage,
+  });
+
+  return response; // Retorna o objeto de resposta HTTP
+}
