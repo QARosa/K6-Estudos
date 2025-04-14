@@ -2,6 +2,8 @@ import http from 'k6/http';
 import { sleep, group, check, fail } from 'k6';
 import { loginEmailInvalido, loginSenhaInvalida, loginCamposVazios, loginUser, loginAdmin } from './scenarios/login.js';
 import { ConsultarAdmin, ConsultarUsers,ConsultarTodos,postUsuariosAdm,postUsuariosNoAdm,deletarUsuario, AlterarUsuario } from './scenarios/usuarios.js';
+import { consultarIdProdutos, consultarTodosProdutos, AdminCriarProduto, deletarProdutos, AlterarProduto } from './scenarios/produto.js';
+
 
 export const options = {
   scenarios: {
@@ -62,7 +64,7 @@ export function loginApi() {
   //   });
   // });
 
-  group('Usuários API', function () {
+  //group('Usuários API', function () {
 
       // group('GET /admin', function () {
       //   ConsultarAdmin();
@@ -92,11 +94,34 @@ export function loginApi() {
       //   let [email, password, userId] = postUsuariosNoAdm();
       //   AlterarUsuario(userId);
       // });     
-    }
-  );
+  //   }
+  // );
 
-//   group('Produtos API', function () {
+  group('Produtos API', function () {
+    group('GET /produtos', function () {
+      consultarIdProdutos();
+    });
 
-//   }
-// );
-}   
+    group('GET /Todos produtos', function () {
+      consultarTodosProdutos();
+    });
+
+    group('Admin Cadastro Produto', function () {
+      let adminauthorization = loginAdmin();
+      AdminCriarProduto(adminauthorization);
+    });
+
+     group('DELETE/ Cenário de exclusão de produtos', function () {  
+      let adminauthorization = loginAdmin();
+      let produtoId = AdminCriarProduto(adminauthorization);
+      deletarProdutos(produtoId, adminauthorization); // Chama a função de recurso para exclusão 
+     });   
+     
+    group('PUT/ Cenário de alteração  de produtos', function () {  
+      let adminauthorization = loginAdmin(); // Obtém o token de autenticação do administrador
+      let produtoId = AdminCriarProduto(adminauthorization); // Cria o produto e obtém o ID
+      AlterarProduto(adminauthorization, produtoId); // Chama a função de recurso para alteração
+      }
+    );}
+ ); 
+}
