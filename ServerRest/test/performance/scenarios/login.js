@@ -1,9 +1,9 @@
-import { group } from 'k6';
+import { group, check } from 'k6';
 import { SharedArray } from "k6/data"
 import papaparse from "https://jslib.k6.io/papaparse/5.1.1/index.js"
 import { randomItem,randomString, randomIntBetween } from "https://jslib.k6.io/k6-utils/1.4.0/index.js"
 import { postLogin } from '../resources/login.js';
-import { postUsuariosAdm,postUsuariosNoAdm } from './usuarios.js';
+// import { postUsuariosAdm,postUsuariosNoAdm } from '../resources/usuarios.js';
 
 
 const usuarios = new SharedArray("usuarios", function () {
