@@ -7,10 +7,6 @@ import { randomItem,randomString, randomIntBetween } from "https://jslib.k6.io/k
 import { postLogin } from './login.js';
 
 
-
-
-// export function getCarrinhos(queryParams, expectedStatus, expectedQtdeCarrinhos) {
-
 export function getCarrinhos(queryParams, expectedStatus) {
     let headers = {
         'Content-Type': 'application/json',
@@ -21,19 +17,18 @@ export function getCarrinhos(queryParams, expectedStatus) {
 
     check(response, {
         [`status is ${expectedStatus}`]: (r) => r.status === expectedStatus,
-        // [`quantidade is ${expectedQtdeCarrinhos}`]: (r) => r.json().quantidade.every(carrinho => carrinho.quantidade === expectedQtdeCarrinhos),
-    });
+        'carrinho encontrado': (r) => r.json().carrinhos[0].idUsuario === "0uxuPY0cbmQhpEz1",
+      });
 
-    if (response.status !== 200) {
-        console.error(`Erro ao obter carrinhos: Status esperado 200, mas recebido ${response.status}`);
-        console.error(`Resposta da API: ${response.body}`);
-    } else {
-        console.log('Carrinhos obtidos com sucesso.');
-        // console.log(`Quantidade de carrinhos: ${response.json().quantidade.length}`);
+    if (queryParams) {
+        check(response, {
+            'id do carrinho encontrado qbMqntef4iTOwWfg': (r) => r.json().carrinhos[0]._id === 'qbMqntef4iTOwWfg',
+        });
     }
+    let idproduto = response.json()._id;
+    return idproduto
 
-    sleep(1); // Simula um tempo de espera de 1 segundo entre as requisições
-
+    sleep(1); 
 }
 
 

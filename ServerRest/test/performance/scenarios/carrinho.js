@@ -1,7 +1,7 @@
 import { group } from 'k6';
 import { SharedArray } from "k6/data"
 import { randomItem, randomString, randomIntBetween } from "https://jslib.k6.io/k6-utils/1.4.0/index.js"
-import { getCarrinhos, PostCarrinhos } from '../resources/carrinho.js';
+import { getCarrinhos } from '../resources/carrinho.js';
 import { postLogin } from '../resources/login.js';
 
 
@@ -14,19 +14,18 @@ function generateUniqueEmail() {
   return `${randomIntBetween(1, 100000)}_${randomString(5)}@qa.com`;
 }
 
-export function getAllCarrinhos() {
+export function consultaTodosCarrinhos() {
   getCarrinhos("", 200);
 }
 
-export function getIdCarrinhos() {
-  getCarrinhos('?_id=aFOUqntef4iaOwWfg', 200);
+export function consultaIdCarrinho() {
+  let idcarrinho = getCarrinhos('?idUsuario=0uxuPY0cbmQhpEz1', 200);
+  return idcarrinho;
 }
 
-export function PostCarrinhosOK() {
+export function criarCarrinhosOK() {
   
-  postLogin(authorization)
-
-  PostCarrinhos('K6leHdftCeOJj8BJ', 2, 201, 'Cadastro de carrinho realizado com sucesso');
+  
 }
 
 
