@@ -41,90 +41,90 @@ export const options = {
 }
 
 export function loginApi() {
-  // group('Login API', function () {
-  //   group('POST /login - E-mail inválido', function () {
-  //     loginEmailInvalido();
-  //   });
+  group('Login API', function () {
+    group('POST /login - E-mail inválido', function () {
+      loginEmailInvalido();
+    });
 
-  //   group('POST /login - Senha inválida', function () {
-  //     loginSenhaInvalida();
-  //   });
+    group('POST /login - Senha inválida', function () {
+      loginSenhaInvalida();
+    });
 
-  //   group('POST /login - Campos vazios', function () {
-  //     loginCamposVazios();
-  //   });
+    group('POST /login - Campos vazios', function () {
+      loginCamposVazios();
+    });
 
-  //   group('POST /login - Login User', function () {
-  //     postUsuariosAdm()
-  //     loginUser();
-  //   });
+    group('POST /login - Login User', function () {
+      postUsuariosAdm()
+      loginUser();
+    });
 
-  //   group('POST /login - Login Admin', function () {
-  //     postUsuariosNoAdm()
-  //     loginAdmin();
-  //   });
-  // });
+    group('POST /login - Login Admin', function () {
+      postUsuariosNoAdm()
+      loginAdmin();
+    });
+  });
 
-  // group('Usuários API', function () {
+  group('Usuários API', function () {
 
-  //     group('GET /admin', function () {
-  //       ConsultarAdmin();
-  //     });
+      group('GET /admin', function () {
+        ConsultarAdmin();
+      });
 
-  //     group('GET /users', function () {
-  //       ConsultarUsers();
-  //     });
+      group('GET /users', function () {
+        ConsultarUsers();
+      });
 
-  //     group('GET /todos', function () {
-  //       ConsultarTodos();
-  //     });
+      group('GET /todos', function () {
+        ConsultarTodos();
+      });
 
-  //     group('POST /usuarios - Administrador', function () {
-  //       postUsuariosAdm();
-  //     });
-  //     group('POST /usuarios - Não Administrador', function () {
-  //       postUsuariosNoAdm();
-  //     });
+      group('POST /usuarios - Administrador', function () {
+        postUsuariosAdm();
+      });
+      group('POST /usuarios - Não Administrador', function () {
+        postUsuariosNoAdm();
+      });
 
-  //     group('DELETE/ Cenário de exclusão de usuários', function () {
-  //       let [email, password, userId] = postUsuariosNoAdm();
-  //       deletarUsuario(userId);
-  //     });
+      group('DELETE/ Cenário de exclusão de usuários', function () {
+        let [email, password, userId] = postUsuariosNoAdm();
+        deletarUsuario(userId);
+      });
 
-  //     group('UPDATE/ Cenário de alteração de usuários', function () {
-  //       let [email, password, userId] = postUsuariosNoAdm();
-  //       AlterarUsuario(userId);
-  //     });     
-  //   }
-  // );
+      group('UPDATE/ Cenário de alteração de usuários', function () {
+        let [email, password, userId] = postUsuariosNoAdm();
+        AlterarUsuario(userId);
+      });     
+    }
+  );
 
-  // group('Produtos API', function () {
-  //   group('GET /produtos', function () {
-  //     consultarIdProdutos();
-  //   });
+  group('Produtos API', function () {
+    group('GET /produtos', function () {
+      consultarIdProdutos();
+    });
 
-  //   group('GET /Todos produtos', function () {
-  //     consultarTodosProdutos();
-  //   });
+    group('GET /Todos produtos', function () {
+      consultarTodosProdutos();
+    });
 
-  //   group('Admin Cadastro Produto', function () {
-  //     let adminauthorization = loginAdmin();
-  //     AdminCriarProduto(adminauthorization);
-  //   });
+    group('Admin Cadastro Produto', function () {
+      let adminauthorization = loginAdmin();
+      AdminCriarProduto(adminauthorization);
+    });
 
-  //    group('DELETE/ Cenário de exclusão de produtos', function () {  
-  //     let adminauthorization = loginAdmin();
-  //     let produtoId = AdminCriarProduto(adminauthorization);
-  //     deletarProdutos(produtoId, adminauthorization); // Chama a função de recurso para exclusão 
-  //    });   
+     group('DELETE/ Cenário de exclusão de produtos', function () {  
+      let adminauthorization = loginAdmin();
+      let produtoId = AdminCriarProduto(adminauthorization);
+      deletarProdutos(produtoId, adminauthorization); // Chama a função de recurso para exclusão 
+     });   
      
-//     group('PUT/ Alterar produtos', function () {  
-//       let adminauthorization = loginAdmin(); // Obtém o token de autenticação do administrador
-//       let produtoId = AdminCriarProduto(adminauthorization); // Cria o produto e obtém o ID
-//       AlterarProduto(adminauthorization, produtoId); // Chama a função de recurso para alteração
-//       }
-//     );}
-//  ); 
+    group('PUT/ Alterar produtos', function () {  
+      let adminauthorization = loginAdmin(); // Obtém o token de autenticação do administrador
+      let produtoId = AdminCriarProduto(adminauthorization); // Cria o produto e obtém o ID
+      AlterarProduto(adminauthorization, produtoId); // Chama a função de recurso para alteração
+      }
+    );}
+ ); 
 
   group('Carrinho API', function () {
 
