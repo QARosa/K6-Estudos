@@ -28,12 +28,12 @@ export function AdminCriarProduto(adminauthorization) {
     let expectedMessage = 'Cadastro realizado com sucesso';
 
     let response = postProdutos(nome, preco, descricao, quantidade, expectedStatus, expectedMessage, adminauthorization);
-    let produtoId = response.json('_id');
-    console.log(`Produto criado com sucesso. ID: ${produtoId}`);
-    return produtoId; // Retorna apenas o ID do produto criado
+    let idProduto = response.json('_id');
+    console.log(`Produto criado com sucesso. ID: ${idProduto}`);
+    return idProduto; // Retorna apenas o ID do produto criado
 }
 
-export function deletarProdutos(produtoId, adminauthorization) {                                             
+export function deletarProdutos(idProduto, adminauthorization) {                                             
        // Excluir o produto criado
     let response = deleteProdutos(adminauthorization,produtoId, 200, 'Registro excluído com sucesso'); // Chama a função de recurso para exclusão
 
@@ -49,16 +49,16 @@ export function deletarProdutos(produtoId, adminauthorization) {
     });
 
     if (response.status !== 200) {
-        console.error(`Erro ao excluir produto com ID ${produtoId}: Status esperado 200, mas recebido ${response.status}`);
+        console.error(`Erro ao excluir produto com ID ${idProduto}: Status esperado 200, mas recebido ${response.status}`);
         console.error(`Resposta da API: ${response.body}`);
     } else {
-        console.log(`Produto com ID ${produtoId} excluído com sucesso.`);
+        console.log(`Produto com ID ${idProduto} excluído com sucesso.`);
     }
 
     // sleep(1); // Simula um tempo de espera de 1 segundo entre as requisições
 }
 
-export function AlterarProduto(adminauthorization,produtoId) {
+export function AlterarProduto(adminauthorization,idProduto) {
 
     let nomeAlterado = "Produto Alterado " + randomIntBetween(1, 100000);
     let precoAlterado = 150.00;
@@ -67,13 +67,13 @@ export function AlterarProduto(adminauthorization,produtoId) {
     let expectedStatusAlteracao = 200;
     let expectedMessageAlteracao = 'Registro alterado com sucesso';
 
-    let responseAlteracao = putProdutos(produtoId, nomeAlterado, precoAlterado, descricaoAlterada, quantidadeAlterada, adminauthorization, expectedStatusAlteracao, expectedMessageAlteracao);
+    let responseAlteracao = putProdutos(idProduto, nomeAlterado, precoAlterado, descricaoAlterada, quantidadeAlterada, adminauthorization, expectedStatusAlteracao, expectedMessageAlteracao);
     if (!responseAlteracao) {
         console.error('Erro: Não foi possível alterar o produto.');
         return;
     }
 
-    console.log(`Produto com ID ${produtoId} alterado com sucesso.`);
+    console.log(`Produto com ID ${idProduto} alterado com sucesso.`);
 }
 
 
