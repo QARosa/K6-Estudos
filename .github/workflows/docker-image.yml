@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  build:
+  Testes:
 
     runs-on: ubuntu-latest
 
@@ -16,11 +16,11 @@ jobs:
     - uses: actions/checkout@v4
     
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build ServerRest --file ServerRest/Dockerfile --tag my-image-name:$(date +%s)
     
     - uses: actions/setup-node@v4
     
-    - name: Install Node.js dependencies and run tests
+    - name: Unit Test
       run: cd ServerRest && npm ci && npm run test:unit
     
     - name: Install K6
