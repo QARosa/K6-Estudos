@@ -14,9 +14,9 @@ export const options = {
       executor: 'constant-arrival-rate',
       rate: 1, // 1 requisição por segundo
       timeUnit: '1s', // por segundo
-      duration: '3m', // duração do teste
+      duration: '1m', // duração do teste
       preAllocatedVUs: 1, // número de VUs pré-alocados
-      maxVUs: 1000, // número máximo de VUs
+      maxVUs: 1, // número máximo de VUs
       exec: 'loginApi', // função a ser executada
     }
     // produtoApi: {
