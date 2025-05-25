@@ -7,20 +7,21 @@ on:
     branches: [ "main" ]
 
 jobs:
-
-  Testes:
-
+  build:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
     
     - name: Build the Docker image
-      run: docker build ServerRest --file ServerRest/Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag my-image-name:latest
+    
+    - name: Run Docker Container
+      run: docker run -p 3000:3000 paulogoncalvesbh/serverest:latest
     
     - uses: actions/setup-node@v4
     
-    - name: Unit Test
+    - name: Install Node.js dependencies and run tests
       run: cd ServerRest && npm ci && npm run test:unit
     
     - name: Install K6
