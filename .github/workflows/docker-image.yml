@@ -8,17 +8,21 @@ on:
 
 jobs:
 
-  TESTES:
+  build:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+    
     - name: Build the Docker image
-      run: docker build ServerRest --file ServerRest/Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    
     - uses: actions/setup-node@v4
-    - name: Unit Test
+    
+    - name: Install Node.js dependencies and run tests
       run: cd ServerRest && npm ci && npm run test:unit
+    
     - name: Install K6
       run: |
         sudo apt-get update
@@ -27,7 +31,6 @@ jobs:
         echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
         sudo apt-get update
         sudo apt-get install -y k6
-
+    
     - name: Run K6
-      run: cd ServerRest && k6 run index.js
-      
+      run: cd ServerRest && k6 run test/performance/index.js
