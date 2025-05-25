@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  build:
+  TESTES:
 
     runs-on: ubuntu-latest
 
@@ -19,5 +19,8 @@ jobs:
     - uses: actions/setup-node@v4
     - name: Unit Test
       run: cd ServerRest && npm ci && npm run test:unit
-   
+    - name: Install K6
+      run: sudo apt-get update && sudo apt-get install -y k6
+    - name: Run K6
+      run: cd ServerRest && k6 run index.js
       
