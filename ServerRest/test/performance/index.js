@@ -16,7 +16,7 @@ export const options = {
       timeUnit: '1s', // por segundo
       duration: '1m', // duração do teste
       preAllocatedVUs: 1, // número de VUs pré-alocados
-      maxVUs: 1, // número máximo de VUs
+      maxVUs: 5, // número máximo de VUs
       exec: 'loginApi', // função a ser executada
     }
     // produtoApi: {
