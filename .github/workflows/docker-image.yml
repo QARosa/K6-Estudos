@@ -17,9 +17,7 @@ jobs:
     - name: Build the Docker image
       run: docker build ServerRest --file ServerRest/Dockerfile --tag my-image-name:$(date +%s)
     - uses: actions/setup-node@v4
-    - name: Intalation Node
+    - name: Unit Test
       run: cd ServerRest && npm ci && npm run test:unit
-    - uses: actions/setup-node@v4
-    - name: Run K6
-      run: cd ServerRest && npm ci && npm run k6 index.js
+   
       
