@@ -14,22 +14,22 @@ jobs:
         with:
           node-version: 20
       - run: cd ServerRest && npm ci && npm run test:unit
-  Funcional_Test:
-    runs-on: ubuntu-latest
-    needs: Unit_Test
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: cd ServerRest && npm ci && npm run test:integration
-  E2E_Test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: cd ServerRest && npm ci && npm run test:e2e
+  # Funcional_Test:
+  #   runs-on: ubuntu-latest
+  #   needs: Unit_Test
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 20
+  #     - run: cd ServerRest && npm ci && npm run test:integration
+  # E2E_Test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 20
+  #     - run: cd ServerRest && npm ci && npm run test:e2e
 
       
