@@ -21,5 +21,5 @@ jobs:
       run: cd ServerRest && npm ci && npm run test:unit
     - uses: actions/setup-node@v4
     - name: Run K6
-      run: cd ServerRest && npm ci && npm k6 run index.js
+      run: cd ServerRest && npm ci && npm run k6 index.js
       
