@@ -11,9 +11,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build Docker image
-        run: docker build -t my-app:latest .
-
       - name: Run Docker container (detached)
         run: docker run -d --name my-app -p 3000:3000 my-app:latest
 
