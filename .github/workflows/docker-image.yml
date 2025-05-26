@@ -17,6 +17,10 @@ jobs:
     
     - name: List files
       run: ls -la
+      
+    - name: Instalar dependências
+      run: npm ci --production --ignore-scripts
+      working-directory: ./ServerRest
     
     - name: Construir imagem Docker
       run: docker build -f ./ServerRest/Dockerfile .
