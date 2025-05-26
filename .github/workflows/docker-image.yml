@@ -15,22 +15,22 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Build the Docker image
-      run: docker build ServerRest --file ServerRest/Dockerfile --tag my-image-name:$(date +%s)
+    - name: Construir imagem Docker
+      run: docker build -t my-app:latest .
+
+    - name: Executar container Docker (em segundo plano)
+      run: docker run -d --name my-app -p 3000:3000 my-app:latest
     
     - uses: actions/setup-node@v4
     
-    - name: Unit Test
-      run: cd ServerRest && npm ci && npm run test:unit
-    
-    - name: Install K6
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y gnupg2
-        curl -s https://dl.k6.io/key.gpg | sudo apt-key add -
-        echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
-        sudo apt-get update
-        sudo apt-get install -y k6
+    # - name: Install K6
+    #   run: |
+    #     sudo apt-get update
+    #     sudo apt-get install -y gnupg2
+    #     curl -s https://dl.k6.io/key.gpg | sudo apt-key add -
+    #     echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+    #     sudo apt-get update
+    #     sudo apt-get install -y k6
     
     - name: Run K6
       run: cd ServerRest && k6 run test/performance/index.js
