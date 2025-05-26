@@ -19,11 +19,8 @@ jobs:
       run: ls -la
     
     - name: Construir imagem Docker
-      run: docker build -t my-app:latest .
+      run: docker build -f ./ServerRest/Dockerfile .
       
-    - name: Construir imagem Docker (com Dockerfile)
-      run: docker build -f ./Dockerfile .
-
     - name: Executar container Docker (em segundo plano)
       run: docker run -d --name my-app -p 3000:3000 my-app:latest
     
