@@ -1,23 +1,38 @@
-name: Docker Image CI
+name: Docker Build and Run Example
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [main]
 
 jobs:
-  build:
+  build-and-run:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Build the Docker image
-      run: docker build ServerRest --file ServerRest/Dockerfile --tag my-image-name:$(date +%s)
-    
-    - name: Run Docker Container
-      run: docker run -p 3000:3000 paulogoncalvesbh/serverest:latest
-     
-    - name: Run K6
-      run: cd ServerRest && k6 run test/performance/index.js
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t my-app:latest .
+
+      - name: Run Docker container (detached)
+        run: docker run -d --name my-app -p 3000:3000 my-app:latest
+
+      # Exemplo de healthcheck simples (aguarda o serviço subir)
+      - name: Wait for app to be ready
+        run: |
+          for i in {1..10}; do
+            if curl -s http://localhost:3000/usuarios; then
+              exit 0
+            fi
+            sleep 3
+          done
+          exit 1
+
+      # Aqui você pode adicionar steps de teste, por exemplo:
+      - name: Run tests
+        run: curl http://localhost:3000/usuarios
+
+      # (Opcional) Parar e remover o container ao final do job
+      - name: Cleanup
+        if: always()
+        run: docker rm -f my-app || true
