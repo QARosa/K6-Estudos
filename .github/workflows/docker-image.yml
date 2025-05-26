@@ -14,17 +14,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: List files
-      run: ls -la
-      
-    - name: Instalar dependências
-      run: npm ci --production --ignore-scripts
-      working-directory: ./ServerRest
-    
+      run: ls -la ServerRest
+
     - name: Construir imagem Docker
-      run: docker build -f ./ServerRest/Dockerfile .
-      
+      run: docker build -t my-app:latest -f ServerRest/Dockerfile ServerRest
+    
     - name: Executar container Docker (em segundo plano)
       run: docker run -d --name my-app -p 3000:3000 my-app:latest
     
