@@ -18,10 +18,10 @@ jobs:
     - name: List files
       run: ls -la ServerRest
 
-    - name: Construir imagem Docker
+    - name: Create image Docker
       run: docker build -t my-app:latest -f ServerRest/Dockerfile ServerRest
     
-    - name: Executar container Docker (em segundo plano)
+    - name: Execute container Docker
       run: docker run -d --name my-app -p 3000:3000 my-app:latest
     
     - uses: actions/setup-node@v4
