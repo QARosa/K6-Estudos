@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  Testes:
+  PerfomanceTest:
 
     runs-on: ubuntu-latest
 
